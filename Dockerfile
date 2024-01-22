@@ -15,7 +15,7 @@ RUN git clone -b $BRANCH $MODIFIED_DERPER_GIT tailscale --depth 1 && \
     cd /app && \
     rm -rf /app/tailscale
 
-FROM ubuntu:20.04
+FROM ubuntu
 WORKDIR /app
 
 # ========= CONFIG =========
@@ -31,7 +31,9 @@ ENV DERP_VERIFY_CLIENTS false
 
 # apt
 RUN apt-get update && \
-    apt-get install -y openssl curl
+    apt-get install -y openssl curl && \
+    apt-get install -y --no-install-recommends apt-utils && \
+    apt-get install -y ca-certificates && \
 
 COPY build_derp.sh /app/
 COPY --from=builder /app/derper /app/derper
