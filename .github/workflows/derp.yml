@@ -1,9 +1,7 @@
 name: derp
 
 on:
-  push:
-    branches:
-      - 'derp'
+  workflow_dispatch:
 
 jobs:
   docker:
